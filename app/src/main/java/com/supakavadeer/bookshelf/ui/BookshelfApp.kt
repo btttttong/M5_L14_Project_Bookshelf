@@ -38,7 +38,6 @@ fun BookshelfApp() {
     val viewModel: BookshelfViewModel = viewModel(
         factory = BookshelfViewModel.factory
     )
-    val useFakeData = true
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val navController: NavHostController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -69,7 +68,6 @@ fun BookshelfApp() {
                 QuerySelectionScreen(
                     viewModel = viewModel,
                     onQuerySubmitted = { query -> viewModel.updateQuery(query) },
-//                    onCancelButtonClicked = { cancelAndNavigateToStart(viewModel, navController) },
                     onNextButtonClicked = { navController.navigate(BookshelfScreen.SHELF.name) },
                 )
             }

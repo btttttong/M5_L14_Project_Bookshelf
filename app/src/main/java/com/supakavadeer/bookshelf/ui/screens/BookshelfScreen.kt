@@ -67,12 +67,13 @@ fun BookshelfScreen(
 @Composable
 fun BooksPhotoCard(
     book: BookItem,
-    onClick: () -> Unit,
+    onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        onClick = { onCardClick(book.id) },
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
@@ -112,10 +113,10 @@ fun PhotosGridScreen(
                     modifier = Modifier
                         .padding(8.dp)
                         .aspectRatio(1f),
-                    onClick = {
-                        viewModel.getCurrentBook()
-                        navController.navigate(com.supakavadeer.bookshelf.ui.BookshelfScreen.DETAIL.name)
-                    },
+                    onCardClick = { id ->
+                        viewModel.currentBookId = id.toString()
+                        navController.navigate("detail")
+                    }
                 )
             }
         }
@@ -162,16 +163,3 @@ fun EmptyScreen() {
         Text("No books found", style = MaterialTheme.typography.displayLarge)
     }
 }
-
-
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun HomeScreenPreview() {
-//    BookshelfTheme {
-//        BookshelfScreen(
-//            retryAction = {},
-//            bookshelfUiState = BookshelfUiState.Success(listOf()),
-//            onNextButtonClicked = {}
-//        )
-//    }
-//}

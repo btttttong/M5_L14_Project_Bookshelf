@@ -56,10 +56,6 @@ class BookshelfViewModel(private val bookshelfRepository: BookshelfRepository) :
         }
     }
 
-    fun clearQuery() {
-        query = ""
-    }
-
     fun getCurrentBook(): BookItem? {
         return bookshelfUiState.let {
             if (it is BookshelfUiState.Success) {
