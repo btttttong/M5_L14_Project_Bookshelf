@@ -10,4 +10,7 @@
     <string name="books_photo">Books photo</string>
     <string name="choose_volume">Enter books volume</string>
     <string name="book_detail">Book detail</string>
+    <string name="enter_keyword">Enter keyword</string>
+    <string name="keyword_warning">Please enter a valid keyword.</string>
+    <string name="thumbnail">Book Thumbnail</string>
 </resources>

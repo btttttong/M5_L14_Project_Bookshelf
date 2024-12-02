@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -45,7 +47,7 @@ fun BookshelfScreen(
         is BookshelfUiState.Success ->
             PhotosGridScreen(
                 books = bookshelfUiState.books,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 navController = navController,
                 viewModel = viewModel
             )
@@ -72,7 +74,7 @@ fun BooksPhotoCard(
 ) {
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         onClick = { onCardClick(book.id) },
     ) {
         AsyncImage(
@@ -84,7 +86,7 @@ fun BooksPhotoCard(
             contentDescription = stringResource(R.string.books_photo),
             error = painterResource(id = R.drawable.ic_broken_image),
             placeholder = painterResource(id = R.drawable.loading_img),
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxSize()
         )
     }
 
@@ -95,7 +97,7 @@ fun PhotosGridScreen(
     books: List<BookItem>,
     viewModel: BookshelfViewModel,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(16.dp),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     navController: NavController,
 ) {
     if (books.isEmpty()) {
@@ -103,8 +105,8 @@ fun PhotosGridScreen(
         return
     } else {
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 150.dp),
-            modifier = modifier.padding(horizontal = 8.dp),
+            columns = GridCells.Adaptive(150.dp),
+            modifier = modifier.padding(horizontal = 4.dp),
             contentPadding = contentPadding,
         ) {
             items(books, key = { it.id }) { book ->
@@ -112,9 +114,10 @@ fun PhotosGridScreen(
                     book = book,
                     modifier = Modifier
                         .padding(8.dp)
+                        .fillMaxWidth()
                         .aspectRatio(1f),
                     onCardClick = { id ->
-                        viewModel.currentBookId = id.toString()
+                        viewModel.currentBookId = id
                         navController.navigate("detail")
                     }
                 )

@@ -15,7 +15,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import com.supakavadeer.bookshelf.R
 
 @Composable
 fun QuerySelectionScreen(
@@ -32,7 +34,7 @@ fun QuerySelectionScreen(
         OutlinedTextField(
             value = query,
             onValueChange = { query = it },
-            label = { Text("Enter keyword") },
+            label = { Text(stringResource(R.string.enter_keyword)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = {
@@ -40,7 +42,8 @@ fun QuerySelectionScreen(
                     onQuerySubmitted(query)
                     keyboardController?.hide()
                 } else {
-                    Toast.makeText(context, "Please enter a valid keyword.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.keyword_warning , Toast.LENGTH_SHORT)
+                        .show()
                 }
             }),
             modifier = Modifier.fillMaxWidth()
@@ -54,7 +57,8 @@ fun QuerySelectionScreen(
                     viewModel.updateQuery(query)
                     onNextButtonClicked()
                 } else {
-                    Toast.makeText(context, "Please enter a valid keyword.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.keyword_warning, Toast.LENGTH_SHORT)
+                        .show()
                 }
             },
             modifier = Modifier.fillMaxWidth()
