@@ -1,14 +1,7 @@
 package com.supakavadeer.bookshelf.network
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-//@Serializable
-//data class BooksPhoto(
-//    val id: String,
-//    @SerialName("img_src")
-//    val img_src: String,
-//)
 
 @Serializable
 data class BooksList(

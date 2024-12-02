@@ -24,7 +24,7 @@ class DefaultAppContainer : AppContainer {
     }
 
     override val bookshelfRepository: BookshelfRepository by lazy {
-        NetworkBooksPhotoRepository(
+        NetworkBookshelfRepository(
             retrofitService
         )
     }

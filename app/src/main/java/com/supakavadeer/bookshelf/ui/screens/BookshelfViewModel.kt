@@ -1,6 +1,5 @@
 package com.supakavadeer.bookshelf.ui.screens
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +13,6 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.supakavadeer.bookshelf.BookshelfApplication
 import com.supakavadeer.bookshelf.data.BookshelfRepository
 import com.supakavadeer.bookshelf.network.BookItem
-import com.supakavadeer.bookshelf.network.BooksList
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -23,14 +21,19 @@ class BookshelfViewModel(private val bookshelfRepository: BookshelfRepository) :
     var bookshelfUiState: BookshelfUiState by mutableStateOf(BookshelfUiState.Loading)
         private set
 
+    var query: String by mutableStateOf("")
+    var currentBookId: String? by mutableStateOf(null)
+
     init {
-        getListOfBooks()
+        bookshelfUiState = BookshelfUiState.Loading
+        Log.d("BookshelfViewModel", "ViewModel is initialized")
     }
 
-    fun getListOfBooks() {
+
+    fun getListOfBooks(query: String) {
         viewModelScope.launch {
             bookshelfUiState = try {
-                val booksList = bookshelfRepository.getListOfBooks()
+                val booksList = bookshelfRepository.getListOfBooks(query)
                 BookshelfUiState.Success(booksList.items)
             } catch (e: Exception) {
                 Log.e("my_tag", e.stackTraceToString())
@@ -41,6 +44,29 @@ class BookshelfViewModel(private val bookshelfRepository: BookshelfRepository) :
         }
     }
 
+    fun resetOrder() {
+        bookshelfUiState = BookshelfUiState.Loading
+        getListOfBooks(query)
+    }
+
+    fun updateQuery(newQuery: String) {
+        if (newQuery != query) {
+            query = newQuery
+            getListOfBooks(query)
+        }
+    }
+
+    fun clearQuery() {
+        query = ""
+    }
+
+    fun getCurrentBook(): BookItem? {
+        return bookshelfUiState.let {
+            if (it is BookshelfUiState.Success) {
+                it.books.find { book -> book.id == currentBookId }
+            } else null
+        }
+    }
 
     companion object {
         val factory: ViewModelProvider.Factory = viewModelFactory {

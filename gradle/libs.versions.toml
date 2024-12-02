@@ -13,6 +13,9 @@ converterKotlinxSerialization = "2.11.0"
 kotlinxSerializationJson = "1.6.3"
 okhttp = "4.12.0"
 coilCompose = "2.6.0"
+navigation = "2.7.7"
+books = "1.0.0"
+roomKtx = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +39,9 @@ converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "co
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+books = { group = "com.google.android.mediahome", name = "books", version.ref = "books" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
